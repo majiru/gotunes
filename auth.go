@@ -27,7 +27,7 @@ func getLevel(groups []string) UserLevel {
 func AuthUser(username, password string) (bool, UserLevel, error) {
 	lc := &auth.Config{
 		Server: conf.DAServer,
-		Port: 389,
+		Port:   389,
 		BaseDN: conf.DABaseDN,
 	}
 	ok, _, groups, err := auth.AuthenticateExtended(lc, username, password, []string{"cn", "memberOf"}, append(conf.Admins, conf.Users...))

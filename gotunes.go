@@ -1,19 +1,19 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
-	"fmt"
 	"os"
 
 	flag "github.com/spf13/pflag"
 )
 
 var (
-	noDup bool
+	noDup    bool
 	authConf string
-	port string
-	conf *Config
+	port     string
+	conf     *Config
 )
 
 func init() {
@@ -25,8 +25,8 @@ func init() {
 
 func main() {
 	var (
-		ctl chan string = nil
-		q chan []string = nil
+		ctl chan string   = nil
+		q   chan []string = nil
 	)
 	useAuth := false
 	if authConf != "" {
@@ -39,18 +39,17 @@ func main() {
 		q = make(chan []string, 1)
 		http.HandleFunc("/signin", handleSignin)
 		if cf, err := os.Open(authConf); err != nil {
-			fmt.Fprintf(os.Stderr, "Could not open conf file: %v\n", err);
+			fmt.Fprintf(os.Stderr, "Could not open conf file: %v\n", err)
 			os.Exit(1)
 		} else {
 			if conf, err = readConf(cf); err != nil {
-				fmt.Fprintf(os.Stderr, "Could not parse conf file: %v\n", err);
+				fmt.Fprintf(os.Stderr, "Could not parse conf file: %v\n", err)
 				os.Exit(1)
 			}
-		}	
+		}
 	}
-
 
 	http.HandleFunc("/", genIndexHandle(ch, ctl, q, useAuth))
 	go DJ(ch, ctl, q, noDup)
-	log.Fatal(http.ListenAndServe(":" + port, nil))
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

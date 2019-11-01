@@ -1,6 +1,6 @@
 package main
 
-import(
+import (
 	"encoding/json"
 	"io"
 	"io/ioutil"
@@ -9,8 +9,8 @@ import(
 type Config struct {
 	DAServer string
 	DABaseDN string
-	Admins []string
-	Users []string
+	Admins   []string
+	Users    []string
 }
 
 func readConf(confFile io.ReadSeeker) (*Config, error) {

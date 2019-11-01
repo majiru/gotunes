@@ -64,8 +64,6 @@ func DJ(song chan string, ctl chan string, out chan []string, noDup bool) {
 	}
 }
 
-
-
 func play(song string) (*exec.Cmd, chan error) {
 	done := make(chan error)
 	cmd := exec.Command("mpv", "--length=5:00", "--no-video", "--no-terminal", song)
