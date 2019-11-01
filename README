@@ -1,0 +1,10 @@
+gotunes
+
+Gotunes allows for multiple users to queue up music to play through
+mpv.
+
+Options:
+	--n: prevent duplicates from being queued
+	--auth config: Enable Active Directory™ Auth
+	--port port: Specify port to listen on for web server
+
